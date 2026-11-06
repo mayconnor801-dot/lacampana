@@ -83,8 +83,8 @@ section{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8
 .rev{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;flex:1;min-width:0}.rev::-webkit-scrollbar{display:none}
 .rev article{flex:0 0 min(330px,80%);scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column}.rev article p{color:var(--tx);margin:10px 0;flex:1}.rev .nm{color:var(--mut);font-weight:600}
 #fc{margin-top:6px}#fc span{animation:up .5s both;color:var(--tx)}
-.rev{display:block;overflow:hidden;padding:8px 0}.rtk{display:flex;gap:16px;transition:transform .8s cubic-bezier(.6,0,.2,1);will-change:transform}.rev article{flex:0 0 min(340px,76%);opacity:.35;transform:scale(.92);transition:opacity .8s,transform .8s,border-color .8s}.rev article.act{opacity:1;transform:none;border-color:var(--ac)}.rtk.nt article{transition:none}
-.rev article{aspect-ratio:1}.rev article p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden;min-height:0}
+.car{position:relative}.rev{width:100%;padding:8px 0}.ar{position:absolute;top:50%;z-index:2;transform:translateY(-50%)}.ar:first-child{left:8px}.ar:last-child{right:8px}.rtk{position:relative;display:flex;gap:16px;transition:transform .8s cubic-bezier(.6,0,.2,1);will-change:transform}.rev article{flex:0 0 min(380px,calc(100% - 56px));aspect-ratio:1;padding:18px;opacity:.35;transform:scale(.92);transition:opacity .8s,transform .8s,border-color .8s}.rev article.act{opacity:1;transform:none;border-color:var(--ac)}.rtk.nt article{transition:none}.rev article p{font-size:.85rem;line-height:1.4;flex:none;margin:8px 0;overflow-wrap:anywhere}
+@media(max-width:760px){.car{display:grid;grid-template-columns:1fr 1fr;gap:12px}.rev{grid-column:1/-1;grid-row:1}.ar{position:static;transform:none}.ar:first-child{grid-column:1;grid-row:2;justify-self:end}.ar:last-child{grid-column:2;grid-row:2;justify-self:start}}
 .logo img{height:68px;width:auto;display:block}nav{padding-top:4px;padding-bottom:4px}
 .ban{grid-column:1/-1;position:relative;height:170px;border-radius:16px;overflow:hidden;background:#000}.ban img{width:100%;height:100%;object-fit:cover;opacity:.75;display:block}.ban::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,13,10,.92),transparent 75%)}.ban div{position:absolute;left:22px;bottom:14px;z-index:2}.ban h3{font-size:1.6rem}.ban span{color:var(--mut);font-size:.9rem}
 .tg{align-self:flex-start;background:var(--ac2);color:#fff;font-size:.7rem;font-weight:600;border-radius:999px;padding:2px 10px}.tg.g{background:var(--ac);color:#1a1008}
@@ -284,7 +284,7 @@ const R=[['Carlos Mejía',5,'Encontramos este lugar por casualidad y fue una de 
 $('rev').innerHTML=R.map(r=>`<article><span><span class="stars"><i style="width:${r[1]/5*100}%"></i></span> <b>${r[1].toFixed(1)}</b></span><p>“${r[2]}”</p><span class="nm">${r[0]}</span></article>`).join('');
 const rv=$('rev'),h0=rv.innerHTML;rv.innerHTML='<div class="rtk" id="rtk">'+h0+h0+h0+'</div>';
 const rtk=$('rtk'),cards=rtk.children,N=R.length;let ci=N,tm,at;
-function place(a){rtk.style.transition=a?'':'none';rtk.classList.toggle('nt',!a);void rtk.offsetWidth;const w=cards[0].offsetWidth;rtk.style.transform=`translateX(${rv.clientWidth/2-(ci*(w+16)+w/2)}px)`;[...cards].forEach((c,i)=>c.classList.toggle('act',i==ci))}
+function place(a){rtk.style.transition=a?'':'none';rtk.classList.toggle('nt',!a);void rtk.offsetWidth;const card=cards[ci],center=card.offsetLeft+card.offsetWidth/2;rtk.style.transform=`translateX(${rv.clientWidth/2-center}px)`;[...cards].forEach((c,i)=>c.classList.toggle('act',i==ci))}
 function sc(d){ci+=d;place(true);clearTimeout(tm);tm=setTimeout(()=>{if(ci>=2*N||ci<N){ci=ci%N+N;place(false)}},900);auto()}
 function auto(){clearInterval(at);at=setInterval(()=>sc(1),4000)}
 place(false);auto();addEventListener('resize',()=>place(false));
